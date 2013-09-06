@@ -1,0 +1,22 @@
+{
+  "name": "pins",
+  "version": "0.0.0",
+  "description": "Create Pinterest style pins for your own files over HTTP",
+  "author": "Dave Eddy <dave@daveeddy.com> (http://www.daveeddy.com)",
+  "repository": "git://github.com/bahamas10/node-pins.git",
+  "license": "MIT",
+  "preferGlobal": true,
+  "bin": {
+    "pins": "./pins.js"
+  },
+  "dependencies": {
+    "mime": "~1.2.9",
+    "easyreq": "~0.0.3",
+    "access-log": "~0.1.2",
+    "log-timestamp": "~0.1.0",
+    "ejs": "~0.8.4",
+    "open": "~0.0.4",
+    "latest": "~0.1.2",
+    "posix-getopt": "~1.0.0"
+  }
+}

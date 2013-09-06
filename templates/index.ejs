@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+	<head>
+		<link href="/style.css?private" rel="stylesheet" type="text/css" />
+		<title><%= basename %></title>
+	</head>
+	<body>
+		<ul id="directories" class="block pin">
+			<h2>Folders</h2>
+			<% directories.forEach(function(directory){ %>
+			<li><a href="<%= directory.url %>"><%= directory.name %>/</a></li>
+			<% }); %>
+		</ul>
+		<ul id="files" class="block pin">
+			<h2>Files</h2>
+			<% files.forEach(function(file){ %>
+			<li><a href="<%= file.url %>"><%= file.name %></a></li>
+			<% }); %>
+		</ul>
+		<div class="pin">
+			<h2>Browsing <%= name %></h2>
+		</div>
+		<br style="clear: both;" />
+		<div id="wrapper">
+			<div id="columns">
+			<% pictures.forEach(function(picture){ %>
+			<div class="pin">
+				<a href="<%= picture.url %>"><img src="<%= picture.url %>" /></a>
+				<p><a href="<%= picture.url %>"><%= picture.name %></a></p>
+			</div>
+			<% }); %>
+			</div>
+		</div>
+	</body>
+</html>
