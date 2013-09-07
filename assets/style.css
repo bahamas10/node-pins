@@ -9,7 +9,7 @@ html, body, * {
 }
 
 body {
-	background: url(/background.png?private) ;
+	background: url(/assets/scribble_light.png?private) ;
 	font-family: sans-serif;
 }
 
@@ -29,7 +29,7 @@ a:hover {
 	margin: 50px auto;
 }
 
-#columns {
+ul.columns {
 	-webkit-column-count: 3;
 	-webkit-column-gap: 10px;
 	-webkit-column-fill: auto;

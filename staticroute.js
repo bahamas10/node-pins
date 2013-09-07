@@ -9,8 +9,7 @@ var ejs = require('ejs');
 var mime = require('mime');
 
 var templ = fs.readFileSync(path.join(__dirname, 'templates', 'index.ejs'), 'utf-8');
-var pattern_file = path.join(__dirname, 'assets', 'scribble_light.png');
-var css_file = path.join(__dirname, 'assets', 'style.css');
+var assetsdir = path.join(__dirname, 'assets');
 
 module.exports = main;
 
@@ -48,13 +47,9 @@ function main(opts) {
 
     var f = path.join((opts.dir || process.cwd()), reqfile);
 
-    switch (req.url) {
-      case '/background.png?private':
-        f = pattern_file;
-        break;
-      case '/style.css?private':
-        f = css_file;
-        break;
+    if (urlparsed.pathname.indexOf('/assets/') === 0 && urlparsed.query.hasOwnProperty('private')) {
+      // private asset
+      f = path.join(assetsdir, urlparsed.pathname.replace('/assets', ''));
     }
 
     tryfile();
