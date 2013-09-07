@@ -53,14 +53,6 @@ ul.columns {
 	padding: 15px;
 	padding-bottom: 5px;
 	background: -webkit-linear-gradient(45deg, #FFF, #F9F9F9);
-	opacity: 1;
-
-	/*
-	-webkit-transition: all .2s ease;
-	-moz-transition: all .2s ease;
-	-o-transition: all .2s ease;
-	transition: all .2s ease;
-	*/
 }
 
 .pin img {
@@ -96,10 +88,6 @@ ul.columns {
 		-moz-column-count: 5;
 		column-count: 5;
 	}
-}
-
-#columns:hover .pin:not(:hover) {
-	opacity: 1.0;
 }
 
 .block {

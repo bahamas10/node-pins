@@ -7,7 +7,7 @@
 		<script>
 			$(document).ready(function() {
 				var $sortable = $('.sortable');
-				$sortable.sortable({handle: '.handle'});
+				$sortable.sortable({handle: '.handle', opacity: .7});
 			});
 		</script>
 
@@ -34,7 +34,7 @@
 			<ul class="columns sortable">
 			<% pictures.forEach(function(picture){ %>
 			<li class="pin" data-name="<%= picture.name %>">
-				<a href="<%= picture.url %>"><img class="non-sortable" src="<%= picture.url %>" /></a>
+				<a href="<%= picture.url %>"><img src="<%= picture.url %>" /></a>
 				<p>
 					<a href="<%= picture.url %>"><%= picture.name %></a>
 					<span class="handle">&#x2630;</span>

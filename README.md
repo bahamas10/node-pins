@@ -43,6 +43,13 @@ Todo
 
 - Order should be saved in a file like `.DS_Store`... `.pins.plist` maybe
 
+Credit
+------
+
+- Style influenced by http://pinterest.com
+- CSS adapted from http://cssdeck.com/labs/css-only-pinterest-style-columns-layout
+- Background Patterns from http://subtlepatterns.com/
+
 License
 -------
 
