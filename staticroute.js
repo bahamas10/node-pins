@@ -111,6 +111,9 @@ function main(opts) {
               });
             });
             function end() {
+              data.pictures.sort(datasort);
+              data.directories.sort(datasort);
+              data.files.sort(datasort);
               var html = ejs.render(templ, data);
               res.html(html);
             }
@@ -166,4 +169,12 @@ function main(opts) {
       });
     }
   }
+}
+
+function datasort(a, b) {
+  if (a.name < b.name)
+    return -1;
+  if (a.name > b.name)
+    return 1;
+  return 0;
 }
