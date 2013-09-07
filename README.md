@@ -3,7 +3,7 @@ pins
 
 Create Pinterest style pins for your own files over HTTP
 
-![pins][http://www.daveeddy.com/static/media/github/pins.png]
+![pins](http://www.daveeddy.com/static/media/github/pins.png)
 
 *still in beta*
 
