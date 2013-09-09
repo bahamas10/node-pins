@@ -55,7 +55,7 @@ ul.columns {
 	background: -webkit-linear-gradient(45deg, #FFF, #F9F9F9);
 }
 
-.pin img {
+.pin img, .pin video {
 	width: 100%;
 	border-bottom: 1px solid #ccc;
 	padding-bottom: 15px;

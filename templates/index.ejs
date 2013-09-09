@@ -32,11 +32,15 @@
 		<br style="clear: both;" />
 		<div id="wrapper">
 			<ul class="columns sortable">
-			<% pictures.forEach(function(picture){ %>
-			<li class="pin" data-name="<%= picture.name %>">
-				<a href="<%= picture.url %>"><img src="<%= picture.url %>" /></a>
+			<% pins.forEach(function(pin){ %>
+			<li class="pin" data-name="<%= pin.name %>">
+				<% if (pin.mime.indexOf('video') > -1) { %>
+				<video src="<%= pin.url %>" controls></video>
+				<% } else { %>
+				<a href="<%= pin.url %>"><img src="<%= pin.url %>" /></a>
+				<% } %>
 				<p>
-					<a href="<%= picture.url %>"><%= picture.name %></a>
+					<a href="<%= pin.url %>"><%= pin.name %></a>
 					<span class="handle">&#x2630;</span>
 				</p>
 			</li>

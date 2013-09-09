@@ -85,7 +85,7 @@ function main(opts) {
             var data = {
               name: reqfile,
               basename: path.basename(reqfile),
-              pictures: [],
+              pins: [],
               directories: [],
               files: []
             };
@@ -93,15 +93,17 @@ function main(opts) {
             var i = 0;
             d.forEach(function(name) {
               var fullpath = path.join(file, name);
+              var m = mime.lookup(fullpath);
               var o = {
                 name: name,
+                mime: m,
                 url: path.join(urlparsed.pathname, name)
               };
               fs.stat(fullpath, function(e_, s_) {
                 if (e_)
                   data.files.push(o);
-                else if (mime.lookup(fullpath).indexOf('image') > -1)
-                  data.pictures.push(o);
+                else if (m.indexOf('image') > -1 || m.indexOf('video') > -1)
+                  data.pins.push(o);
                 else if (s_.isDirectory())
                   data.directories.push(o)
                 else
@@ -111,7 +113,7 @@ function main(opts) {
               });
             });
             function end() {
-              data.pictures.sort(datasort);
+              data.pins.sort(datasort);
               data.directories.sort(datasort);
               data.files.sort(datasort);
               var html = ejs.render(templ, data);
