@@ -102,7 +102,7 @@ function main(opts) {
               fs.stat(fullpath, function(e_, s_) {
                 if (e_)
                   data.files.push(o);
-                else if (m.indexOf('image') > -1 || m.indexOf('video') > -1)
+                else if (ispin(m))
                   data.pins.push(o);
                 else if (s_.isDirectory())
                   data.directories.push(o)
@@ -179,4 +179,12 @@ function datasort(a, b) {
   if (a.name > b.name)
     return 1;
   return 0;
+}
+
+function ispin(m) {
+  var pins = ['image', 'video', 'audio'];
+  for (var i in pins)
+    if (m.indexOf(pins[i]) > -1)
+      return true;
+  return false;
 }

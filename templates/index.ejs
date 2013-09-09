@@ -34,10 +34,14 @@
 			<ul class="columns sortable">
 			<% pins.forEach(function(pin){ %>
 			<li class="pin" data-name="<%= pin.name %>">
-				<% if (pin.mime.indexOf('video') > -1) { %>
+				<% if (pin.mime.indexOf('audio') > -1) { %>
+				<audio src="<%= pin.url %>" controls></audio>
+				<% } else if (pin.mime.indexOf('video') > -1) { %>
 				<video src="<%= pin.url %>" controls></video>
-				<% } else { %>
+				<% } else if (pin.mime.indexOf('image') > -1) { %>
 				<a href="<%= pin.url %>"><img src="<%= pin.url %>" /></a>
+				<% } else { %>
+				<%= pin.url %>
 				<% } %>
 				<p>
 					<a href="<%= pin.url %>"><%= pin.name %></a>

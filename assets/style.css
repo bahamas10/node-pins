@@ -55,11 +55,15 @@ ul.columns {
 	background: -webkit-linear-gradient(45deg, #FFF, #F9F9F9);
 }
 
-.pin img, .pin video {
+.pin img, .pin video, .pin audio {
 	width: 100%;
 	border-bottom: 1px solid #ccc;
 	padding-bottom: 15px;
 	margin-bottom: 5px;
+}
+
+.pin audio {
+	width: 200px;
 }
 
 .pin p {

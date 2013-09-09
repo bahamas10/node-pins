@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "mime": "~1.2.9",
-    "easyreq": "~0.0.3",
+    "easyreq": "~0.0.4",
     "access-log": "~0.1.2",
     "log-timestamp": "~0.1.0",
     "ejs": "~0.8.4",
