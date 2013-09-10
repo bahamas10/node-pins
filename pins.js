@@ -61,23 +61,23 @@ var noopen = false;
 var noreorder = false;
 var option;
 while ((option = parser.getopt()) !== undefined) {
-    switch (option.option) {
-        case 'd': dir = option.optarg; break;
-        case 'h': console.log(usage()); process.exit(0);
-        case 'H': host = option.optarg; break;
-        case 'n': noopen = true; break;
-        case 'p': port = option.optarg; break;
-        case 'r': port = option.optarg; break;
-        case 'u': // check for updates
-            require('latest').checkupdate(package, function(ret, msg) {
-                console.log(msg);
-                process.exit(ret);
-              });
-          return;
-        case 'v': console.log(package.version); process.exit(0);
-        case 'x': noreorder = true; break;
-        default: console.error(usage()); process.exit(1); break;
-      }
+  switch (option.option) {
+    case 'd': dir = option.optarg; break;
+    case 'h': console.log(usage()); process.exit(0);
+    case 'H': host = option.optarg; break;
+    case 'n': noopen = true; break;
+    case 'p': port = option.optarg; break;
+    case 'r': port = option.optarg; break;
+    case 'u': // check for updates
+      require('latest').checkupdate(package, function(ret, msg) {
+        console.log(msg);
+        process.exit(ret);
+      });
+      return;
+    case 'v': console.log(package.version); process.exit(0);
+    case 'x': noreorder = true; break;
+    default: console.error(usage()); process.exit(1); break;
+  }
 }
 var args = process.argv.slice(parser.optind());
 
