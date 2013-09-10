@@ -8,8 +8,8 @@ var url = require('url');
 var ejs = require('ejs');
 var mime = require('mime');
 
-var templ = fs.readFileSync(path.join(__dirname, 'templates', 'index.ejs'), 'utf-8');
-var assetsdir = path.join(__dirname, 'assets');
+var templ = fs.readFileSync(path.join(__dirname, '..', 'templates', 'index.ejs'), 'utf-8');
+var assetsdir = path.join(__dirname, '..', 'assets');
 
 module.exports = main;
 

@@ -32,10 +32,20 @@
 		<br style="clear: both;" />
 		<div id="wrapper">
 			<ul class="columns sortable">
-			<% pins.forEach(function(pin){ %>
-			<li class="pin" data-name="<%= pin.name %>">
+			<% pins.forEach(function(pin, i){ %>
+			<li class="pin" data-name="<%= pin.name %>" data-num="<%= i %>">
 				<% if (pin.mime.indexOf('audio') > -1) { %>
-				<audio src="<%= pin.url %>" controls></audio>
+				<script>
+				// album art
+				(function() {
+					var image = new Image();
+					image.onload = function() {
+						var el = document.querySelector("li[data-num='<%= i %>']");
+						el.insertBefore(image, el.firstChild);
+					};
+					image.src = "<%= pin.url %>?art";
+				})();
+				</script>
 				<% } else if (pin.mime.indexOf('video') > -1) { %>
 				<video src="<%= pin.url %>" controls></video>
 				<% } else if (pin.mime.indexOf('image') > -1) { %>
@@ -44,6 +54,9 @@
 				<%= pin.url %>
 				<% } %>
 				<p>
+					<% if (pin.mime.indexOf('audio') > -1) { %>
+					<audio src="<%= pin.url %>" controls></audio>
+					<% } %>
 					<a href="<%= pin.url %>"><%= pin.name %></a>
 					<span class="handle">&#x2630;</span>
 				</p>

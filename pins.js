@@ -15,12 +15,13 @@ var accesslog = require('access-log');
 var easyreq = require('easyreq');
 var open = require('open');
 var getopt = require('posix-getopt');
-var staticroute = require('./staticroute')(
+var staticroute = require('./routes/staticroute')(
   {
     autoindex: true,
     logger: function() {}
   }
 );
+var artroute = require('./routes/art');
 
 var package = require('./package.json');
 
@@ -83,5 +84,8 @@ function listening() {
 function onrequest(req, res) {
   easyreq(req, res);
   accesslog(req, res);
-  staticroute(req, res);
+  if (req.urlparsed.query.hasOwnProperty('art'))
+    artroute(req, res);
+  else
+    staticroute(req, res);
 }

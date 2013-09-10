@@ -17,6 +17,7 @@
     "ejs": "~0.8.4",
     "open": "~0.0.4",
     "latest": "~0.1.2",
-    "posix-getopt": "~1.0.0"
+    "posix-getopt": "~1.0.0",
+    "musicmetadata": "~0.2.5"
   }
 }
