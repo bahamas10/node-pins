@@ -7,8 +7,33 @@
 		<script>
 			$(document).ready(function() {
 				var $sortable = $('.sortable');
-				$sortable.sortable({handle: '.handle', opacity: .7});
+				$sortable.sortable({handle: '.handle', opacity: .7, stop: function() {
+					var o = {
+						order: currentorder()
+					}
+					$.ajax({url: '?order', data: JSON.stringify(o), type: 'POST', dataType: 'JSON'});
+				}});
+
+				$.getJSON('.pins.json', function(data) {
+					console.log(data);
+					data.order = data.order || [];
+					var $pins = $('li.pin');
+					for (var i = data.order.length - 1; i >= 0; i--) {
+						var $pin = $pins.filter(function() {
+							return $(this).data('name') === data.order[i];
+						});
+						$pin.parent().prepend($pin);
+					}
+				});
 			});
+
+			function currentorder() {
+				var o = [];
+				$('li.pin').each(function(pin) {
+					o.push($(this).data('name'));
+				});
+				return o;
+			}
 		</script>
 
 		<title><%= basename %></title>
@@ -17,7 +42,7 @@
 		<ul id="directories" class="block pin">
 			<h2>Folders</h2>
 			<% directories.forEach(function(directory){ %>
-			<li><a href="<%= directory.url %>"><%= directory.name %>/</a></li>
+			<li><a href="<%= directory.url.replace(/\/*$/g, '') %>/"><%= directory.name %>/</a></li>
 			<% }); %>
 		</ul>
 		<ul id="files" class="block pin">
