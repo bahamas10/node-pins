@@ -7,7 +7,6 @@ module.exports = artfunc;
 function artfunc(req, res) {
   var reqfile = decodeURI(req.urlparsed.pathname.replace(/%23/g, '#'));
   var file = path.join(process.cwd(), reqfile);
-  console.dir(file);
   getmetadata(file, function(e, metadata) {
     if (e)
       return res.notfound();
