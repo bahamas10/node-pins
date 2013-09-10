@@ -39,7 +39,7 @@ function main(opts) {
     var urlparsed = req.urlparsed || url.parse(req.url, true);
 
     // decode everything, substitute # but not /
-    var reqfile = path.normalize(decodeURI(urlparsed.pathname).replace(/%23/g, '#'));
+    var reqfile = path.normalize(decodeURIComponent(urlparsed.pathname));
 
     // unsupported methods
     if (['HEAD', 'GET'].indexOf(req.method) === -1)
@@ -97,7 +97,7 @@ function main(opts) {
               var o = {
                 name: name,
                 mime: m,
-                url: path.join(urlparsed.pathname, name)
+                url: path.join(urlparsed.pathname, encodeURIComponent(name))
               };
               fs.stat(fullpath, function(e_, s_) {
                 if (e_)

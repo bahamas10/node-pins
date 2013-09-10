@@ -40,7 +40,7 @@
 				(function() {
 					var image = new Image();
 					image.onload = function() {
-						var el = document.querySelector("li[data-num='<%= i %>']");
+						var el = $("li[data-num='<%= i %>']")[0];
 						el.insertBefore(image, el.firstChild);
 					};
 					image.src = "<%= pin.url %>?art";

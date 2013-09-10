@@ -5,7 +5,7 @@ var getmetadata = require('../lib/metadata');
 module.exports = artfunc;
 
 function artfunc(req, res) {
-  var reqfile = decodeURI(req.urlparsed.pathname.replace(/%23/g, '#'));
+  var reqfile = path.normalize(decodeURIComponent(req.urlparsed.pathname));
   var file = path.join(process.cwd(), reqfile);
   getmetadata(file, function(e, metadata) {
     if (e)
