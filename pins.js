@@ -70,10 +70,10 @@ while ((option = parser.getopt()) !== undefined) {
     case 'r': port = option.optarg; break;
     case 'u': // check for updates
       require('latest').checkupdate(package, function(ret, msg) {
-        console.log(msg);
-        process.exit(ret);
-      });
-      return;
+        console.log(msg);
+        process.exit(ret);
+      });
+      return;
     case 'v': console.log(package.version); process.exit(0);
     case 'x': noreorder = true; break;
     default: console.error(usage()); process.exit(1); break;
