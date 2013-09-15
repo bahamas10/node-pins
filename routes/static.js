@@ -105,14 +105,14 @@ function main(opts) {
                 else if (ispin(m))
                   data.pins.push(o);
                 else if (s_.isDirectory())
-                  data.directories.push(o)
+                  data.directories.push(o);
                 else
                   data.files.push(o);
                 if (++i >= d.length)
-                  end();
+                  done();
               });
             });
-            function end() {
+            function done() {
               data.pins.sort(datasort);
               data.directories.sort(datasort);
               data.files.sort(datasort);
