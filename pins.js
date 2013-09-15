@@ -7,7 +7,6 @@
  * License: MIT
  */
 
-var fs = require('fs');
 var http = require('http');
 var util = require('util');
 
@@ -25,7 +24,7 @@ var staticroute = require('./routes/static')(
 var artroute = require('./routes/art');
 var orderroute = require('./routes/order');
 
-var package = require('./package.json');
+var _package = require('./package.json');
 
 function usage() {
   return [
@@ -39,7 +38,7 @@ function usage() {
     '  -p, --port          the port on which to listen, defaults to ' + port,
     '  -u, --updates       check for available updates',
     '  -v, --version       print the version number and exit',
-    '  -x, --no-reorder    disable persistent pin rearranging',
+    '  -x, --no-reorder    disable persistent pin rearranging'
   ].join('\n');
 }
 
@@ -51,7 +50,7 @@ var options = [
   'p:(port)',
   'u(updates)',
   'v(version)',
-  'x(no-reorder)',
+  'x(no-reorder)'
   ].join('');
 var parser = new getopt.BasicParser(options, process.argv);
 var dir = process.cwd();
@@ -69,17 +68,16 @@ while ((option = parser.getopt()) !== undefined) {
     case 'p': port = option.optarg; break;
     case 'r': port = option.optarg; break;
     case 'u': // check for updates
-      require('latest').checkupdate(package, function(ret, msg) {
+      require('latest').checkupdate(_package, function(ret, msg) {
         console.log(msg);
         process.exit(ret);
       });
       return;
-    case 'v': console.log(package.version); process.exit(0);
+    case 'v': console.log(_package.version); process.exit(0);
     case 'x': noreorder = true; break;
     default: console.error(usage()); process.exit(1); break;
   }
 }
-var args = process.argv.slice(parser.optind());
 
 process.chdir(dir);
 
