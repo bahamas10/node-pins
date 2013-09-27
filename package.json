@@ -12,12 +12,12 @@
   "dependencies": {
     "mime": "~1.2.9",
     "easyreq": "~0.0.4",
-    "access-log": "~0.1.2",
     "log-timestamp": "~0.1.0",
     "ejs": "~0.8.4",
     "open": "~0.0.4",
     "latest": "~0.1.2",
     "posix-getopt": "~1.0.0",
-    "musicmetadata": "~0.2.5"
+    "musicmetadata": "~0.2.5",
+    "access-log": "~0.2.2"
   }
 }
