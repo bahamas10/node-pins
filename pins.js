@@ -85,7 +85,6 @@ process.chdir(dir);
 http.createServer(onrequest).listen(port, host, listening);
 
 function listening() {
-  require('log-timestamp');
   console.log('server started: http://%s:%d', host, port);
   if (!noopen)
     open(util.format('http://%s:%d', host, port));
