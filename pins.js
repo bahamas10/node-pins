@@ -25,6 +25,7 @@ function usage() {
     'Usage: pins [-d dir] [-H host] [-p port] [-v] [-u] [-h]',
     '',
     'Options',
+    '  -b, --buffer        buffer log output, defaults to ' + buffer,
     '  -d, --dir <dir>     the directory to serve out of, defaults to cwd',
     '  -h, --help          print this message and exit',
     '  -H, --host <host>   the host on which to listen, defaults to ' + host,
@@ -39,6 +40,7 @@ function usage() {
 }
 
 var options = [
+  'b(buffer)',
   'd:(dir)',
   'h(help)',
   'H:(host)',
@@ -51,6 +53,7 @@ var options = [
   'x(no-reorder)'
   ].join('');
 var parser = new getopt.BasicParser(options, process.argv);
+var buffer = false;
 var dir = process.cwd();
 var host = 'localhost';
 var index = false;
@@ -61,6 +64,7 @@ var noreorder = false;
 var option;
 while ((option = parser.getopt()) !== undefined) {
   switch (option.option) {
+    case 'b': buffer = true; break;
     case 'd': dir = option.optarg; break;
     case 'h': console.log(usage()); process.exit(0);
     case 'H': host = option.optarg; break;
@@ -99,6 +103,13 @@ function listening() {
   console.log('server started: http://%s:%d', host, port);
   if (!noopen)
     open(util.format('http://%s:%d', host, port));
+  if (buffer) {
+    // buffer the logs
+    var logbuffer = require('log-buffer');
+    logbuffer(8192);
+    // flush every 5 seconds
+    setInterval(logbuffer.flush.bind(logbuffer), 5 * 1000);
+  }
 }
 
 function onrequest(req, res) {
