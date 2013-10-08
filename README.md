@@ -42,11 +42,13 @@ Usage
     Usage: pins [-d dir] [-H host] [-p port] [-v] [-u] [-h]
 
     Options
-      -d, --dir           the directory to serve out of, defaults to cwd
+      -d, --dir <dir>     the directory to serve out of, defaults to cwd
       -h, --help          print this message and exit
-      -H, --host          the host on which to listen, defaults to localhost
+      -H, --host <host>   the host on which to listen, defaults to localhost
+      -i, --index         show index.html/index.htm files if found, defaults to false
+      -l, --limit <num>   max number of files to process in a directory, defaults to 5000
       -n, --no-open       don't open the default browser upon starting
-      -p, --port          the port on which to listen, defaults to 8087
+      -p, --port <port>   the port on which to listen, defaults to 8087
       -u, --updates       check for available updates
       -v, --version       print the version number and exit
       -x, --no-reorder    disable persistent pin rearranging
