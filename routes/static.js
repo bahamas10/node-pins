@@ -111,10 +111,10 @@ function main(opts) {
               fs.stat(fullpath, function(e_, s_) {
                 if (e_)
                   data.files.push(o);
-                else if (ispin(m))
-                  data.pins.push(o);
                 else if (s_.isDirectory())
                   data.directories.push(o);
+                else if (ispin(m))
+                  data.pins.push(o);
                 else
                   data.files.push(o);
                 if (++i >= Math.min(d.length, opts.limit))
