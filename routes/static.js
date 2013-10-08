@@ -38,7 +38,7 @@ function main(opts) {
     // `npm install easyreq` to have req.urlparsed set
     var urlparsed = req.urlparsed || url.parse(req.url, true);
 
-    // decode everything, substitute # but not /
+    // decode everything
     var reqfile = path.normalize(decodeURIComponent(urlparsed.pathname));
 
     // unsupported methods
@@ -83,15 +83,20 @@ function main(opts) {
             res.setHeader('Content-Type', 'text/html; charset=utf-8');
 
             var data = {
-              name: reqfile,
               basename: path.basename(reqfile),
-              pins: [],
               directories: [],
-              files: []
+              files: [],
+              limithit: false,
+              name: reqfile,
+              pins: []
             };
 
             var i = 0;
-            d.forEach(function(name) {
+            d.forEach(function(name, _i) {
+              if (_i > opts.limit) {
+                data.limithit = true;
+                return;
+              }
               var fullpath = path.join(file, name);
               var m = mime.lookup(fullpath);
               var o = {
@@ -108,7 +113,7 @@ function main(opts) {
                   data.directories.push(o);
                 else
                   data.files.push(o);
-                if (++i >= d.length)
+                if (++i >= Math.min(d.length, opts.limit))
                   done();
               });
             });
