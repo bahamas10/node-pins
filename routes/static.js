@@ -78,6 +78,10 @@ function main(opts) {
               end(res, 500);
               return;
             }
+
+            if (urlparsed.query.hasOwnProperty('json'))
+              return res.json(d);
+
             d.sort();
             d = ['.', '..'].concat(d);
             res.setHeader('Content-Type', 'text/html; charset=utf-8');
