@@ -15,12 +15,6 @@ var easyreq = require('easyreq');
 var open = require('open');
 var getopt = require('posix-getopt');
 
-var staticroute = require('./routes/static')(
-  {
-    autoindex: true,
-    logger: function() {}
-  }
-);
 var artroute = require('./routes/art');
 var orderroute = require('./routes/order');
 
@@ -31,11 +25,13 @@ function usage() {
     'Usage: pins [-d dir] [-H host] [-p port] [-v] [-u] [-h]',
     '',
     'Options',
-    '  -d, --dir           the directory to serve out of, defaults to cwd',
+    '  -d, --dir <dir>     the directory to serve out of, defaults to cwd',
     '  -h, --help          print this message and exit',
-    '  -H, --host          the host on which to listen, defaults to ' + host,
+    '  -H, --host <host>   the host on which to listen, defaults to ' + host,
+    '  -i, --index         show index.html/index.htm files if found, defaults to ' + index,
+    '  -l, --limit <num>   max number of files to process in a directory, defaults to ' + limit,
     '  -n, --no-open       don\'t open the default browser upon starting',
-    '  -p, --port          the port on which to listen, defaults to ' + port,
+    '  -p, --port <port>   the port on which to listen, defaults to ' + port,
     '  -u, --updates       check for available updates',
     '  -v, --version       print the version number and exit',
     '  -x, --no-reorder    disable persistent pin rearranging'
@@ -46,6 +42,8 @@ var options = [
   'd:(dir)',
   'h(help)',
   'H:(host)',
+  'i(index)',
+  'l:(limit)',
   'n(no-open)',
   'p:(port)',
   'u(updates)',
@@ -55,6 +53,8 @@ var options = [
 var parser = new getopt.BasicParser(options, process.argv);
 var dir = process.cwd();
 var host = 'localhost';
+var index = false;
+var limit = 5000;
 var port = 8087;
 var noopen = false;
 var noreorder = false;
@@ -64,6 +64,8 @@ while ((option = parser.getopt()) !== undefined) {
     case 'd': dir = option.optarg; break;
     case 'h': console.log(usage()); process.exit(0);
     case 'H': host = option.optarg; break;
+    case 'i': index = true; break;
+    case 'l': limit = +option.optarg || limit; break;
     case 'n': noopen = true; break;
     case 'p': port = option.optarg; break;
     case 'r': port = option.optarg; break;
@@ -80,6 +82,15 @@ while ((option = parser.getopt()) !== undefined) {
 }
 
 process.chdir(dir);
+
+var staticroute = require('./routes/static')(
+  {
+    autoindex: true,
+    logger: function() {},
+    limit: limit,
+    tryfiles: index ? ['index.html', 'index.htm'] : []
+  }
+);
 
 // start the server
 http.createServer(onrequest).listen(port, host, listening);

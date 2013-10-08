@@ -55,6 +55,10 @@
 			<h2>Browsing <%= name %></h2>
 		</div>
 		<br style="clear: both;" />
+		<% if (limithit) { %>
+		<em>max limit hit, some pins will be hidden</em>
+		<% } %>
+		<br style="clear: both;" />
 		<div id="wrapper">
 			<ul class="columns sortable">
 			<% pins.forEach(function(pin, i){ %>
