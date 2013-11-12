@@ -17,7 +17,7 @@
     "latest": "~0.1.2",
     "posix-getopt": "~1.0.0",
     "musicmetadata": "~0.2.5",
-    "access-log": "~0.2.2",
-    "log-buffer": "0.0.3"
+    "access-log": "~0.3.3",
+    "log-buffer": "~0.0.3"
   }
 }
