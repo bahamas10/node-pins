@@ -39,6 +39,10 @@
 		<title><%= basename %></title>
 	</head>
 	<body>
+		<div class="pin block">
+			<h2>Index <%= name %></h2>
+		</div>
+		<br style="clear: both;" />
 		<ul id="directories" class="block pin">
 			<h2>Folders</h2>
 			<% directories.forEach(function(directory){ %>
@@ -51,9 +55,6 @@
 			<li><a href="<%= file.url %>"><%= file.name %></a></li>
 			<% }); %>
 		</ul>
-		<div class="pin">
-			<h2>Browsing <%= name %></h2>
-		</div>
 		<br style="clear: both;" />
 		<% if (limithit) { %>
 		<em>max limit hit, some pins will be hidden</em>
