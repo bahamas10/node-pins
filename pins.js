@@ -14,6 +14,7 @@ var accesslog = require('access-log');
 var easyreq = require('easyreq');
 var open = require('open');
 var getopt = require('posix-getopt');
+var utils = require('./lib/utils');
 
 var artroute = require('./routes/art');
 var orderroute = require('./routes/order');
@@ -115,15 +116,16 @@ function listening() {
 function onrequest(req, res) {
   easyreq(req, res);
   accesslog(req, res);
-  if (req.urlparsed.query.hasOwnProperty('art'))
+
+  if (utils.hap(req.urlparsed.query, 'art')) {
     artroute(req, res);
-
-  else if (req.urlparsed.query.hasOwnProperty('order') && req.method === 'POST')
-    if (noreorder)
+  } else if (utils.hap(req.urlparsed.query, 'order') && req.method === 'POST') {
+    if (noreorder) {
       res.error();
-    else
+    } else {
       orderroute(req, res);
-
-  else
+    }
+  } else {
     staticroute(req, res);
+  }
 }

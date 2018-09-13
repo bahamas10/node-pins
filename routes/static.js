@@ -8,6 +8,8 @@ var url = require('url');
 var ejs = require('ejs');
 var mime = require('mime');
 
+var utils = require('../lib/utils');
+
 var templ = fs.readFileSync(path.join(__dirname, '..', 'templates', 'index.ejs'), 'utf-8');
 var assetsdir = path.join(__dirname, '..', 'assets');
 
@@ -47,7 +49,7 @@ function main(opts) {
 
     var f = path.join((opts.dir || process.cwd()), reqfile);
 
-    if (urlparsed.pathname.indexOf('/assets/') === 0 && urlparsed.query.hasOwnProperty('private')) {
+    if (urlparsed.pathname.indexOf('/assets/') === 0 && utils.hap(urlparsed.query, 'private')) {
       // private asset
       f = path.join(assetsdir, urlparsed.pathname.replace('/assets', ''));
     }
@@ -79,7 +81,7 @@ function main(opts) {
               return;
             }
 
-            if (urlparsed.query.hasOwnProperty('json'))
+            if (utils.hap(urlparsed.query, 'json'))
               return res.json(d);
 
             d.sort();
@@ -102,7 +104,8 @@ function main(opts) {
                 return;
               }
               var fullpath = path.join(file, name);
-              var m = mime.lookup(fullpath);
+              var ext = path.extname(name);
+              var m = mime.getType(ext.slice(1));
               var o = {
                 name: name,
                 mime: m,
@@ -160,7 +163,7 @@ function main(opts) {
             res.setHeader('Content-Range', 'bytes ' + startrange + '-' + endrange + '/' + stats.size);
             res.setHeader('Accept-Ranges', 'bytes');
             res.setHeader('Content-Length', chunksize);
-            res.setHeader('Content-Type', mime.lookup(file));
+            res.setHeader('Content-Type', mime.getType(file));
             res.setHeader('ETag', etag);
             if (req.method === 'HEAD') {
               res.end();
@@ -171,7 +174,7 @@ function main(opts) {
             }
           } else {
             res.setHeader('Content-Length', stats.size);
-            res.setHeader('Content-Type', mime.lookup(file));
+            res.setHeader('Content-Type', mime.getType(file));
             res.setHeader('ETag', etag);
             if (req.method === 'HEAD') {
               res.end();
@@ -196,9 +199,12 @@ function datasort(a, b) {
 }
 
 function ispin(m) {
+  m = m || '';
   var pins = ['image', 'video', 'audio'];
-  for (var i in pins)
-    if (m.indexOf(pins[i]) > -1)
+  for (var i in pins) {
+    if (m.indexOf(pins[i]) > -1) {
       return true;
+    }
+  }
   return false;
 }
